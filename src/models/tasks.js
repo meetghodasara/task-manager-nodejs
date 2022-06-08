@@ -1,20 +1,17 @@
 const mongoose = require("mongoose");
-const validator = require('validator');
+const validator = require("validator");
 
-const task = mongoose.model('Task' , {
-    description :{
-        type:String,
-        trim : true,
-        required : true
+const task = mongoose.model("Task", {
+  description: {
+    type: String,
+    trim: true,
+    required: true,
+  },
+  Status: {
+    type: Boolean,
+    default: false,
+    required: false,
+  },
+});
 
-    },
-    Status:{
-        type: Boolean,
-        default : false,
-        required: false
-    }
-})
-
-
-
-module.exports = task
+module.exports = task;
