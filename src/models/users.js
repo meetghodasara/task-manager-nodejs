@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 
-const User = mongoose.model("User", {
+
+const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -25,9 +26,7 @@ const User = mongoose.model("User", {
       if (value.length < 6) {
         throw new Error("Password Length should be greater than 6 !");
       }
-      if (value === "password") {
-        throw new Error('Password should not been "password" choose different');
-      }
+      
     },
     trim: true,
   },
@@ -40,6 +39,8 @@ const User = mongoose.model("User", {
       }
     },
   },
-});
+})
+
+const User = mongoose.model('User' , UserSchema)
 
 module.exports = User;
