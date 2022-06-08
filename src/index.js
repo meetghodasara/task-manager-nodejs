@@ -68,7 +68,7 @@ app.post('/users' , async (req , res)=>{
 //     }
 // })
 
-app.get('/tasks' , async (req , res)=>{
+app.get('/tasks' , async (req , res)=> {
     
     try{
         const tasks = await Task.find({})
@@ -147,6 +147,29 @@ app.post('/tasks' , async (req , res) =>{
 //         res.status(400).send(error)
 //     }
 // })
+
+app.patch('/task/:id' , async (req , res) =>{
+    const updates = Object.keys(req.body)
+    const allowedItems = ['Status' , 'description']
+    const isValidOperation =  updates.every((update) => { allowedItems.includes(update)}) 
+    if(!isValidOperation){
+        return res.status(404).send({error : 'Invalid Update operation'})
+    }
+    try{
+        const id = req.params.id
+        const task = await Task.findByIdAndUpdate(id , req.body , {new : true , runValidators : true} )
+        if(!task){
+            return res.status(404).send('Task is not found')
+        }
+        res.send(task)
+    }catch(error) {
+        res.status(404).send(error)
+    }
+})
+
+
+
+
 
 app.listen(port , ()=>{
     console.log('Click the link http://localhost:'+ port);
