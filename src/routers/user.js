@@ -42,6 +42,7 @@ router.patch("/users/:id", async (req, res) => {
     allowedItems.includes(update)
   );
 
+   
   if (!isValidOperation) {
     return res.status(400).send({ error: "Invalid Update Operation" });
   }
