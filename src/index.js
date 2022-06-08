@@ -68,6 +68,21 @@ app.patch('/users/:id' , async (req , res) =>{
     }
 })
 
+app.delete('/users/:id' , async (req, res) =>{
+    try{
+        const id = req.params.id
+        const user = await User.findByIdAndDelete(id)
+        if(!user){
+            res.status(404).send('No user found')
+        }
+        res.send(user)
+    }
+    catch (error){
+        res.status(500).send(error)
+    }
+})
+
+
 app.get('/tasks' , async (req , res)=> {
     
     try{
@@ -129,8 +144,19 @@ app.patch('/tasks/:id' , async (req , res) =>{
     }
 })
 
-
-
+app.delete('/tasks/:id' , async (req , res)=>{
+    try{
+        const id = req.params.id
+        const task = await Task.findByIdAndDelete(id)
+        if(!task){
+            res.status(404).send('No task found')
+        }
+        res.send(task)
+    }
+    catch(error){
+        res.status(500).send(error)
+    }
+})
 
 
 app.listen(port , ()=>{
